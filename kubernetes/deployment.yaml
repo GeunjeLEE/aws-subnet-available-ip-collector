@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-subnet-available-ip-collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aws-subnet-available-ip-collector
+  template:
+    metadata:
+      labels:
+        app: aws-subnet-available-ip-collector
+    spec:
+      containers:
+      - name: aws-subnet-available-ip-collector
+        image: nigasa12/aws-subnet-available-ip-collector:0.0.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: application-conf
+          mountPath: /usr/src/conf/
+          readOnly: true
+      volumes:
+        - name: application-conf
+          configMap:
+            name: aws-subnet-available-ip-collector-conf
