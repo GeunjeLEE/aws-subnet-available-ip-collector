@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: aws-subnet-available-ip-collector
+spec:
+  containers:
+  - name: aws-subnet-available-ip-collector
+    image: nigasa12/aws-subnet-available-ip-collector:0.0.1
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: application-conf
+      mountPath: /usr/src/conf/
+      readOnly: true
+  restartPolicy: OnFailure
+  volumes:
+    - name: application-conf
+      configMap:
+        name: aws-subnet-available-ip-collector-conf

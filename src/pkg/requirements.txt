@@ -1,0 +1,4 @@
+prometheus-client==0.17.0
+boto3==1.26.160
+PyYAML==6.0
+schema==0.7.5

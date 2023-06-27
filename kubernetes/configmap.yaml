@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-subnet-available-ip-collector-conf
+data:
+  config.yaml: |
+    credentials:
+      aws_access_key_id: base64(<AWS_ACCESS_KEY_ID>)
+      aws_secret_access_key: base64(<AWS_SECRET_ACCESS_KEY>)
+      #aws_region_name: <AWS_REGION_NAME> # default is ap-northeast-2
+    push_gateway_endpoint: localhost:9091
+    filters:
+      vpc_id: <vpc_id>
+      tags:
+        key: value
