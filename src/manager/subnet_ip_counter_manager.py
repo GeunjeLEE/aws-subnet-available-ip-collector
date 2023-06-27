@@ -3,6 +3,9 @@ from schema import Schema, Optional
 from connector.aws_connector import AwsConnector
 import yaml
 import base64
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 
 class SubnetIpCounterManager:
@@ -28,7 +31,11 @@ class SubnetIpCounterManager:
 
     def push_gateway(self, registry):
         endpoint = self.config['push_gateway_endpoint']
-        push_to_gateway(endpoint, job='subnet_available_ip_count', registry=registry)
+        try:
+            push_to_gateway(endpoint, job='subnet_available_ip_count', registry=registry)
+            logging.info("Successfully pushed metrics to push gateway at {}".format(endpoint))
+        except Exception as e:
+            raise Exception("Error while pushing metrics to push gateway: {}".format(e))
 
     @staticmethod
     def _get_config():
