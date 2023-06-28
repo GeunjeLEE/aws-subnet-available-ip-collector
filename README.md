@@ -4,7 +4,7 @@ Collect number of available IPs per aws subnet and Send collected metrics to Pus
 
 ## TODO
 - Support helm chart install
-- collect ips from all subnet if user not set `filter.tags`
+- ~~collect ips from all subnet if user not set `filter.tags`~~
 - Support Multi VPC?
 - configure AWS credentials more safely
 
