@@ -7,24 +7,34 @@ class AwsConnector:
 
     def list_available_ip_counts_by_subnet(self, filters):
         ec2 = self.session.client('ec2')
+
         response = ec2.describe_subnets(
-            Filters=[{
-                'Name': 'vpc-id',
-                'Values': [filters['vpc_id']]
-            }],
+            Filters=self._make_filter(filters)
         )
 
         ret = {}
         for subnet in response['Subnets']:
-            is_match = False
-            for k, v in filters['tags'].items():
-                if subnet['Tags'][0]['Key'] == k and subnet['Tags'][0]['Value'] == v:
-                    is_match = True
-
-            if is_match:
-                ret[subnet['SubnetId']] = subnet['AvailableIpAddressCount']
+            ret[subnet['SubnetId']] = subnet['AvailableIpAddressCount']
 
         return ret
+
+    @staticmethod
+    def _make_filter(filters):
+        result = [{
+            'Name': 'vpc-id',
+            'Values': [filters['vpc_id']]
+        }]
+
+        if filters.get('tags') is None:
+            return result
+
+        for key, value in filters['tags'].items():
+            result.append({
+                'Name': f'tag:{key}',
+                'Values': [value]
+            })
+
+        return result
 
     @staticmethod
     def _init_session(aws_access_key_id, aws_secret_access_key, region_name):
