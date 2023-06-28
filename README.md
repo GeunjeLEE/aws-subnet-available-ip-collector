@@ -54,7 +54,12 @@ kubectl apply -f kubernetes/configmap.yaml
 kubectl apply -f kubernetes/deployment.yaml
 ```
 
-## delete
+## Set Grafana dashboard
+Create panel and just Set the metric name to `available_ip_count`
+![dashboard](./doc/img/dashboard.png) 
+
+
+## Delete
 ```shell
 kubectl delete -f kubernetes/configmap.yaml
 kubectl delete -f kubernetes/deployment.yaml
