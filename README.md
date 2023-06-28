@@ -12,8 +12,7 @@ Collect number of available IPs per aws subnet and Send collected metrics to Pus
 ## Install
 - Clone git
 ```shell
-git clone 
-https://github.com/GeunjeLEE/aws-subnet-available-ip-collector.git
+git clone https://github.com/GeunjeLEE/aws-subnet-available-ip-collector.git
 ```
 
 - Move to directory
